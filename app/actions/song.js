@@ -14,6 +14,12 @@ export function setCurrentPlaylist(data) {
   }
 }
 
+export function setPreviousSong() {
+  return {
+    type: SONG.SET_PREVIOUS_SONG
+  }
+}
+
 export function setNextSong() {
   return {
     type: SONG.SET_NEXT_SONG

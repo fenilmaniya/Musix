@@ -9,13 +9,15 @@ import {
 import { connect } from 'react-redux'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import { colors, device, gStyle } from '../../constants';
+import { colors, device, gStyle, screens } from '../../constants';
 import SvgSearch from '../../components/icons/Svg.Search';
 
 //actions
-import { setAlbum } from '../../actions/album';
+import { setAlbum, searchAlbums } from '../../actions/album';
 import { setSearch } from '../../actions/search';
 import { setCurrentSong, setCurrentPlaylist } from '../../actions/song';
+import { searchArtist } from '../../actions/artist';
+import { searchPlaylists } from '../../actions/playlist';
 
 // components
 import SongItem from '../../containers/SongItem';
@@ -24,8 +26,9 @@ import SeeAllBtn from '../../components/SeeAllBtn';
 import { LoadingView } from '../../components';
 
 function Search({
-  albums, artists, songs, playlists,
-  searchAction, setCurrentAlbum, setCurrentSong, setCurrentPlaylist,
+  songs,
+  searchArtist, searchAlbums, searchPlaylists,
+  searchAction, setCurrentSong, setCurrentPlaylist,
   navigation
 }) {
 
@@ -105,67 +108,31 @@ function Search({
             }
             <SeeAllBtn
               type="Artist"
+              onPress={() => {
+                
+                searchArtist(searchText)
+                navigation.navigate(screens.artistListView)
+              }}
             />
             <SeeAllBtn
               type="Album"
+              onPress={() => {
+                
+                searchAlbums(searchText)
+                navigation.navigate(screens.albumListView)
+              }}
             />
             <SeeAllBtn
               type="Playlist"
+              onPress={() => {
+                
+                searchPlaylists(searchText)
+                navigation.navigate(screens.playlistListView)
+              }}
             />
           </>
           : searching && <LoadingView styles={{ marginTop: 30, }} />
         }
-
-        {/* { albums && albums.length>0 && 
-          <>
-            <Text style={styles.sectionHeading}>Your top genres</Text>
-            <View style={styles.containerRow}>
-              { albums.map(album => 
-                <View key={album.id} style={styles.containerColumn}>
-                  <LineItemSearch
-                    onPress={() => {
-                      setCurrentAlbum(album)
-                      navigation.navigate('AlbumView')
-                    }}
-                    item={album}
-                  /> 
-                </View>
-              )}
-            </View>
-          </>
-        } */}        
-
-        {/* { playlists && playlists.length>0 &&
-          <>
-            <Text style={styles.sectionHeading}>Your top playlists</Text>
-            <View style={styles.containerRow}>
-              { playlists.map(playlist => 
-                <View key={playlist.id} style={styles.containerColumn}>
-                  <LineItemSearch
-                    onPress={() => null}
-                    item={playlist}
-                  /> 
-                </View>
-              )}
-            </View>
-          </>
-        }
-
-        { artists && artists.length>0 &&
-          <>
-            <Text style={styles.sectionHeading}>Your top artists</Text>
-            <View style={styles.containerRow}>
-              { artists.map(artist => 
-                <View key={artist.id} style={styles.containerColumn}>
-                  <LineItemSearch
-                    onPress={() => null}
-                    item={artist}
-                  /> 
-                </View>
-              )}
-            </View>
-          </>
-        } */}
 
       </Animated.ScrollView>
 
@@ -187,10 +154,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentAlbum: (album) => dispatch(setAlbum(album)),
   searchAction: (search) => dispatch(setSearch(search)),
+  searchArtist: (search) => dispatch(searchArtist(search)),
+  searchAlbums: (search) => dispatch(searchAlbums(search)),
+  searchPlaylists: (search) => dispatch(searchPlaylists(search)),
   setCurrentSong: (song) => dispatch(setCurrentSong(song)),
-  setCurrentPlaylist: (data) => dispatch(setCurrentPlaylist(data))
+  setCurrentAlbum: (album) => dispatch(setAlbum(album)),
+  setCurrentPlaylist: (playlist) => dispatch(setCurrentPlaylist(playlist))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

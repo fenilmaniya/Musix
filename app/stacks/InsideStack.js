@@ -5,10 +5,14 @@ import CustomBottomTab from '../components/BottomTab';
 
 import HomeView from '../views/HomeView';
 import AlbumView from '../views/AlbumView';
+import ArtistView from '../views/ArtistView';
 import SearchView from '../views/SearchView';
 import LibraryView from '../views/LibraryView';
 import PlaylistView from '../views/PlaylistView';
 import PlayerView from '../views/PlayerView';
+import ArtistListView from '../views/ArtistListView';
+import AlbumListView from '../views/AlbumListview';
+import PlaylistListView from '../views/PlaylistListView';
 
 const BottomTab=createBottomTabNavigator();
 function BottomTabStack() {
@@ -30,8 +34,12 @@ function InsideStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={'BottomTabStack'} component={BottomTabStack} />
       <Stack.Screen name={'AlbumView'} component={AlbumView} />
+      <Stack.Screen name={'ArtistView'} component={ArtistView} />
       <Stack.Screen name={'PlaylistView'} component={PlaylistView} />
       <Stack.Screen name={'playerView'} component={PlayerView} />
+      <Stack.Screen name={'ArtistListView'} component={ArtistListView} />
+      <Stack.Screen name={'AlbumListView'} component={AlbumListView} />
+      <Stack.Screen name={'PlaylistListView'} component={PlaylistListView} />
     </Stack.Navigator>
   )
 }

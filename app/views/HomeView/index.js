@@ -8,14 +8,15 @@ import PropTypes from 'prop-types';
 import { setPlaylist } from '../../actions/playlist';
 import { setAlbum } from '../../actions/album';
 import { setCurrentSong, setCurrentPlaylist } from '../../actions/song';
+import { setRadio } from '../../actions/radio';
 
 import styles from './styles';
-import { colors, device, gStyle } from '../../constants';
+import { colors, device, gStyle, screens } from '../../constants';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 function HomeView({ 
   radios, playlists, albums, history,
-  setCurrentAlbum, setPlaylist, setCurrentSong, setCurrentPlaylist,
+  setCurrentAlbum, setPlaylist, setCurrentSong, setCurrentPlaylist, setRadio,
   navigation
 }) {
 
@@ -61,7 +62,13 @@ function HomeView({
         style={gStyle.container}
       >
         <View style={gStyle.spacer11} />
-        <HorizontalList data={radios} heading="Radio Station" onItemPress={() => null} />
+        <HorizontalList 
+          data={radios} 
+          heading="Radio Station" 
+          onItemPress={(radio) => {
+            setRadio(radio)
+            navigation.navigate(screens.playerView)
+          }} />
         
         <HorizontalList 
           data={playlists} 
@@ -106,6 +113,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  setRadio: (radio) => dispatch(setRadio(radio)),
   setPlaylist: (playlist) => dispatch(setPlaylist(playlist)),
   setCurrentAlbum: (album) => dispatch(setAlbum(album)),
   setCurrentSong: (song) => dispatch(setCurrentSong(song)),

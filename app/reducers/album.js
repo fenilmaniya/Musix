@@ -1,5 +1,6 @@
 import { ALBUM } from '../actions/actionTypes'
 const is={
+  albums: [],
   currentAlbum: null,
   currentAlbumDetail: null
 }
@@ -16,6 +17,11 @@ export default function album(state=is, action) {
       return {
         ...state,
         currentAlbumDetail: action.data
+      }
+    case ALBUM.SET_ALBUMS:
+      return {
+        ...state,
+        albums: action.data
       }
     default:
       return state;

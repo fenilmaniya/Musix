@@ -13,3 +13,17 @@ export function setAlbumDetail(data) {
     data
   }
 }
+
+export function searchAlbums(data) {
+  return {
+    type: ALBUM.SEARCH_ALBUM,
+    data: data
+  }
+}
+
+export function setAlbums(data) {
+  return {
+    type: ALBUM.SET_ALBUMS,
+    data
+  }
+}

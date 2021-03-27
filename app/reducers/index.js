@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import app from './app';
+import artist from './artist';
 import radio from './radio';
 import album from './album';
 import playlist from './playlist';
@@ -15,5 +16,6 @@ export default combineReducers({
   search,
   playlist,
   song,
-  player
+  player,
+  artist,
 })

@@ -8,28 +8,34 @@ class OfflineNotice extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isConnected: true,
+      isConnected: true
     }
   }
 
   componentDidMount() {
-    const unsubscribe = NetInfo.addEventListener(state => {
-      console.log(state);
+    this.unsubscribe = NetInfo.addEventListener(state => {
       this.setState({
-        isConnected: state.isConnected
+        isConnected: state.isConnected,
       });
     });
 
-    unsubscribe()
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
   }
 
   render() {
     const { isConnected } = this.state;
     
     return (
-      !isConnected && <Animated.View 
-        style={{...styles.offlineContainer }}>
-        <Text style={styles.offlineText}>No Internet Connection</Text>
+      !isConnected && 
+      <Animated.View 
+        style={{
+          ...styles.offlineContainer,
+        }}
+      >
+        <Text style={styles.offlineText}> { ` No Internet Connection ` } </Text>
       </Animated.View>
     )
   }
@@ -37,10 +43,10 @@ class OfflineNotice extends PureComponent {
 const styles = StyleSheet.create({
   offlineContainer: {
     backgroundColor: '#b52424',
-    height: 30,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    paddingVertical: 5,
     width,
   },
   offlineText: { 

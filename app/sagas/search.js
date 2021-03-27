@@ -6,8 +6,6 @@ import { getSongSearchParams } from '../config/urls';
 
 const setSearch = function* setSearch({data}) {
   const searchOpt=yield call(apiGet, getSongSearchParams(data));
-  // console.log(searchOpt);
-  // console.log({songs: {data: searchOpt.results}});
   yield put(setSearchOpt({songs: {data: searchOpt.results}}));
 }
 

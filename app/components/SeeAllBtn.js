@@ -6,7 +6,7 @@ import Animated from "react-native-reanimated"
 import UiUtils from "../utils/UiUtils";
 
 const MARGIN_HORIZONTAL = 14
-const SeeAllBtn = React.memo(({type}) => {
+const SeeAllBtn = React.memo(({type, onPress}) => {
     const scale = new Animated.Value(1)
 
     return (
@@ -17,6 +17,7 @@ const SeeAllBtn = React.memo(({type}) => {
         onPressOut={() =>
           Animated.timing(scale, UiUtils.btnScaleAnim.out).start()
         }
+        onPress={onPress}
         style={styles.btnContainer}>
         <Animated.View
           style={[
@@ -25,7 +26,7 @@ const SeeAllBtn = React.memo(({type}) => {
             },
             styles.container,
           ]}>
-          <Text style={styles.seeAll}>See all {type?.toLowerCase()}s</Text>
+          <Text style={styles.seeAll}>See all {type?.toLowerCase()}</Text>
         </Animated.View>
       </TouchableOpacity>
     )

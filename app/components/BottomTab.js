@@ -57,9 +57,7 @@ export default function BottomTab({state, descriptors, navigation}) {
             <Text style={{ 
               color: isFocused ? colors.white : colors.greyInactive,
               marginTop: 5
-            }}>
-              {label}
-            </Text>
+            }}> { label } </Text>
           </TouchableOpacity>
         );
 

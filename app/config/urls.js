@@ -43,6 +43,40 @@ export const getPlaylistDetailsParams = (perma_url) => {
   }
 }
 
+export const getArtistDetailsParams = (perma_url) => {
+  return {
+    ...defaultAlbumParams,
+    __call: "webapi.get",
+    token: perma_url.split('/')[5],
+    type: "artist",
+    p: 1,
+    n_song: 10,
+    n_album: 10,
+    sub_type: '',
+  }
+}
+
+export const getStationIdParams = (stationName, name, pid = '') => {
+  return {
+    ...defaultParams,
+    language: 'hindi', 
+    pid: pid,
+    mode: "",
+    artistid: "",
+    __call: `webradio.create${stationName.charAt(0).toUpperCase() + stationName.slice(1)}Station`,
+    name: name,
+    query: stationName==="artist"?name:"" 
+  }
+}
+
+export const getStationSongParams = (stationId) => {
+  return {
+    ...defaultParams,
+    __call: "webradio.getSong",
+    stationid: encodeURIComponent(stationId) 
+  }
+}
+
 export const getSearchParams = (query) => {
   return {
     ...defaultAlbumParams,
@@ -59,6 +93,17 @@ export const getSongSearchParams = (query) => {
     p: 1,
     n: 20,
     q: query
+  }
+}
+
+export const getOtherSearchParams = (action, query) => {
+  return {
+    ...defaultAlbumParams,
+    __call: `search.get${action}Results`,
+    p: 1,
+    n: 20,
+    q: query
+
   }
 }
 
